@@ -4,7 +4,8 @@
     "description": "a discord bot to help you track your habits daily",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "node index.js"
     },
     "author": "",
     "license": "ISC",
@@ -16,5 +17,6 @@
         "eslint-config-prettier": "^10.0.2",
         "globals": "^16.0.0",
         "prettier": "^3.5.2"
-    }
+    },
+    "type": "module"
 }
