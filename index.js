@@ -1,10 +1,21 @@
 // Require all the necessary discord.js classes
-import { Client, Collection, Events, GatewayIntentBits } from 'discord.js';
+import {
+    Client,
+    Collection,
+    Events,
+    GatewayIntentBits,
+    MessageFlags,
+} from 'discord.js';
 import configs from './config.json' with { type: 'json' };
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { createRequire } from 'node:module';
 
 const token = configs.token;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const require = createRequire(import.meta.url);
 
 // Create a new client instance
 // "Guild" refers to a Discord server
@@ -65,6 +76,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
     console.log(interaction);
 });
+
+// left off here: https://discordjs.guide/creating-your-bot/command-handling.html#executing-commands
+// discord.com/developers is where the app is hosted
 
 // When the client is ready, run this code (only once).
 // The distinction between `client: Client<boolean>` and `readyClient: Client<true>` is important for TypeScript developers.

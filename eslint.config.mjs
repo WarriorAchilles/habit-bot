@@ -5,22 +5,22 @@ import js from '@eslint/js';
 /** @type {import('eslint').Linter.Config[]} */
 export default [
     js.configs.recommended,
+    eslintConfigPrettier,
     {
         languageOptions: {
             globals: globals.browser,
             ecmaVersion: 'latest',
         },
-        eslintConfigPrettier,
         rules: {
             'arrow-spacing': ['warn', { before: true, after: true }],
-            'brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
+            // 'brace-style': ['error', 'stroustrup', { allowSingleLine: true }],
             'comma-dangle': ['error', 'always-multiline'],
             'comma-spacing': 'error',
             'comma-style': 'error',
             curly: ['error', 'multi-line', 'consistent'],
             'dot-location': ['error', 'property'],
             'handle-callback-err': 'off',
-            indent: ['error', 'tab'],
+            indent: ['error', 4],
             'keyword-spacing': 'error',
             'max-nested-callbacks': ['error', { max: 4 }],
             'max-statements-per-line': ['error', { max: 2 }],
@@ -40,7 +40,7 @@ export default [
             'no-undef': 'error',
             'object-curly-spacing': ['error', 'always'],
             'prefer-const': 'error',
-            quotes: ['error', 'double'],
+            quotes: ['error', 'single'],
             semi: ['error', 'always'],
             'space-before-blocks': 'error',
             'space-before-function-paren': [
@@ -56,6 +56,7 @@ export default [
             'space-unary-ops': 'error',
             'spaced-comment': 'error',
             yoda: 'error',
+            'import/first': 'off',
         },
     },
 ];
