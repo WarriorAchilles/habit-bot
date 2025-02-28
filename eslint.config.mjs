@@ -37,7 +37,7 @@ export default [
             'no-shadow': ['error', { allow: ['err', 'resolve', 'reject'] }],
             'no-trailing-spaces': ['error'],
             'no-var': 'error',
-            'no-undef': 'off',
+            'no-undef': 'error',
             'object-curly-spacing': ['error', 'always'],
             'prefer-const': 'error',
             quotes: ['error', 'double'],
