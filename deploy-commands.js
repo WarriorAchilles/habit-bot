@@ -11,7 +11,6 @@ const require = createRequire(import.meta.url);
 
 const commands = [];
 // Grab all the command folders from the commands directory you created earlier
-// eslint-disable-next-line no-undef
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
