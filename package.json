@@ -6,7 +6,9 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "node index.js",
-        "deploy": "node deploy-commands.js"
+        "deployCommands": "node deploy-commands.js",
+        "syncDb": "node syncdb.js",
+        "createDb": "node syncdb.js --force"
     },
     "author": "",
     "license": "ISC",
