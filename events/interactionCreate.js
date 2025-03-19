@@ -13,6 +13,9 @@ export const execute = async (interaction) => {
     }
 
     try {
+        console.log(
+            `User ${interaction.user.globalName} (${interaction.user.username}) used ${interaction.commandName}`,
+        );
         await command.execute(interaction);
     } catch (error) {
         console.error(error);
