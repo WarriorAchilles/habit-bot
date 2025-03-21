@@ -23,7 +23,7 @@ export const Tags = db.define('tags', {
     },
 });
 
-export const users = db.define('users', {
+export const Users = db.define('users', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -31,14 +31,14 @@ export const users = db.define('users', {
         unique: true,
         allowNull: false,
     },
-    discord_id: {
+    discord_tag: {
         type: Sequelize.TEXT,
         unique: true,
         allowNull: false,
     },
 });
 
-export const habits = db.define('habits', {
+export const Habits = db.define('habits', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -50,7 +50,7 @@ export const habits = db.define('habits', {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-            model: users,
+            model: Users,
             key: 'id',
         },
         onDelete: 'CASCADE',
@@ -58,6 +58,10 @@ export const habits = db.define('habits', {
     habit_name: {
         type: Sequelize.STRING,
         allowNull: false,
+    },
+    habit_description: {
+        type: Sequelize.STRING,
+        allowNull: true,
     },
     frequency: {
         type: Sequelize.STRING, // e.g., 'daily', 'weekly',
@@ -72,7 +76,7 @@ export const habits = db.define('habits', {
     },
 });
 
-export const habitCompletions = db.define('habit_completions', {
+export const HabitCompletions = db.define('habit_completions', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
@@ -94,14 +98,14 @@ export const habitCompletions = db.define('habit_completions', {
     },
 });
 
-users.hasMany(habits, { foreignKey: 'user_id', onDelete: 'CASCADE' });
-habits.belongsTo(users, { foreignKey: 'user_id' });
+Users.hasMany(Habits, { foreignKey: 'user_id', onDelete: 'CASCADE' });
+Habits.belongsTo(Users, { foreignKey: 'user_id' });
 
-habits.hasMany(habitCompletions, {
+Habits.hasMany(HabitCompletions, {
     foreignKey: 'habit_id',
     onDelete: 'CASCADE',
 });
-habitCompletions.belongsTo(habits, { foreignKey: 'user_id' });
+HabitCompletions.belongsTo(Habits, { foreignKey: 'user_id' });
 
-users.hasMany(habitCompletions, { foreignKey: 'user_id', onDelete: 'CASCADE' });
-habitCompletions.belongsTo(users, { foreignKey: 'user_id' });
+Users.hasMany(HabitCompletions, { foreignKey: 'user_id', onDelete: 'CASCADE' });
+HabitCompletions.belongsTo(Users, { foreignKey: 'user_id' });
