@@ -71,7 +71,7 @@ export async function execute(interaction) {
         const habit = await Habits.create({
             habit_name: habitName,
             habit_description: habitDescription,
-            frequency: habitfrequency,
+            frequency: habitfrequency ?? 'daily',
             reminder_time: habitReminderTime ?? '12:00 PM', // TODO: sanitize input
             user_id: user.id,
         });
@@ -82,6 +82,7 @@ export async function execute(interaction) {
             return await interaction.reply('That tag already exists.');
         }
 
+        console.log('Error: ', e);
         return await interaction.reply(
             'Something went wrong with adding a habit.',
         );
