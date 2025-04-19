@@ -8,21 +8,6 @@ export const db = new Sequelize('database', 'user', 'password', {
     storage: 'database.sqlite',
 });
 
-// create a tags table
-export const Tags = db.define('tags', {
-    name: {
-        type: Sequelize.STRING,
-        unique: true,
-    },
-    description: Sequelize.TEXT,
-    username: Sequelize.STRING,
-    usage_count: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0,
-        allowNull: false,
-    },
-});
-
 export const Users = db.define('users', {
     id: {
         type: Sequelize.INTEGER,
