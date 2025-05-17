@@ -23,7 +23,7 @@ export async function execute(interaction) {
     const habit = await Habits.findOne({
         where: {
             user_id: user.id,
-            habit_name: habitName,
+            habit_name: habitName.toLowerCase(), // todo: sanitize user input?
         },
     });
 

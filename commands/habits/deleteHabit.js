@@ -12,7 +12,7 @@ export const data = new SlashCommandBuilder()
     );
 
 export async function execute(interaction) {
-    const habitName = interaction.options.getString('name');
+    const habitName = interaction.options.getString('name').toLowerCase();
     const userTag = interaction.user.tag;
 
     const user = await Users.findOne({
@@ -23,7 +23,7 @@ export async function execute(interaction) {
     const habit = await Habits.findOne({
         where: {
             user_id: user.id,
-            habit_name: habitName,
+            habit_name: habitName, // todo: sanitize user input?
         },
     });
 

@@ -39,7 +39,7 @@ export const data = new SlashCommandBuilder()
     );
 
 export async function execute(interaction) {
-    const habitName = interaction.options.getString('name');
+    const habitName = interaction.options.getString('name').toLowerCase();
     const habitDescription = interaction.options.getString('description');
     const habitfrequency = interaction.options.getString('frequency');
     const habitReminderTime = interaction.options.getString('time');
