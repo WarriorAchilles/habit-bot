@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from 'discord.js';
-import { Habits, Users, HabitCompletions } from '../../utils/database.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { Habits, Users, HabitCompletions } from '../../utils/database';
 
 export const data = new SlashCommandBuilder()
     .setName('markdone')
@@ -11,7 +11,7 @@ export const data = new SlashCommandBuilder()
             .setRequired(true),
     );
 
-export async function execute(interaction) {
+export async function execute(interaction: ChatInputCommandInteraction) {
     const habitName = interaction.options.getString('name');
     const userTag = interaction.user.tag;
 
@@ -20,18 +20,29 @@ export async function execute(interaction) {
             discord_tag: userTag,
         },
     });
+    if (!user) {
+        return await interaction.reply(
+            'You need to register a habit first using `/register` before you can mark it as done.',
+        );
+    }
     const habit = await Habits.findOne({
         where: {
-            user_id: user.id,
-            habit_name: habitName.toLowerCase(), // todo: sanitize user input?
+            user_id: user?.id,
+            habit_name: habitName?.toLowerCase(), // todo: sanitize user input?
         },
     });
 
+    if (!habit) {
+        return await interaction.reply(
+            `You don't have a habit called ${habitName}. Please check the name and try again.`,
+        );
+    }
+
     try {
         await HabitCompletions.create({
-            user_id: user.id,
-            habit_id: habit.id,
-            completed_at: Date.now(),
+            user_id: user?.id,
+            habit_id: habit?.id,
+            completed_at: new Date(),
         });
         // Possible TODO: maybe change this response message based on habit frequency
         return await interaction.reply(

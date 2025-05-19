@@ -1,5 +1,5 @@
-import { SlashCommandBuilder } from 'discord.js';
-import { Habits, Users } from '../../utils/database.js';
+import { ChatInputCommandInteraction, SlashCommandBuilder } from 'discord.js';
+import { Habits, Users } from '../../utils/database';
 
 export const data = new SlashCommandBuilder()
     .setName('create-habit')
@@ -38,12 +38,16 @@ export const data = new SlashCommandBuilder()
             .setRequired(false),
     );
 
-export async function execute(interaction) {
-    const habitName = interaction.options.getString('name').toLowerCase();
+export async function execute(interaction: ChatInputCommandInteraction) {
+    const habitName = interaction.options.getString('name')?.toLowerCase();
     const habitDescription = interaction.options.getString('description');
     const habitfrequency = interaction.options.getString('frequency');
     const habitReminderTime = interaction.options.getString('time');
     const userTag = interaction.user.tag;
+
+    if (!habitName) {
+        return await interaction.reply('Please provide a name for the habit.');
+    }
 
     let user = await Users.findOne({
         where: { discord_tag: userTag },
@@ -56,7 +60,7 @@ export async function execute(interaction) {
                 discord_tag: userTag,
             });
             user = newUser;
-        } catch (e) {
+        } catch (e: any) {
             if (e.name === 'SequelizeUniqueConstraintError') {
                 return await interaction.reply('That user already exists.');
             }
@@ -70,14 +74,14 @@ export async function execute(interaction) {
     try {
         const habit = await Habits.create({
             habit_name: habitName,
-            habit_description: habitDescription,
+            habit_description: habitDescription ?? '',
             frequency: habitfrequency ?? 'daily',
             reminder_time: habitReminderTime ?? '12:00 PM', // TODO: sanitize input
             user_id: user.id,
         });
 
         return await interaction.reply(`Habit ${habit.habit_name} added.`);
-    } catch (e) {
+    } catch (e: any) {
         if (e.name === 'SequelizeUniqueConstraintError') {
             return await interaction.reply('That tag already exists.');
         }

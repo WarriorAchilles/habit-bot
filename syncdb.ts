@@ -1,4 +1,4 @@
-import { db } from './utils/database.js';
+import { db } from './utils/database';
 
 // eslint-disable-next-line no-undef
 const args = process.argv.slice(2);

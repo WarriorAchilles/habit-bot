@@ -1,13 +1,18 @@
-import { Events, MessageFlags } from 'discord.js';
+import { Events, Interaction, MessageFlags } from 'discord.js';
+import { CustomClient } from '../types/CustomClient.ts';
 
 export const name = Events.InteractionCreate;
-export const execute = async (interaction) => {
+export const execute = async (interaction: Interaction) => {
     if (!interaction.isChatInputCommand()) return;
 
-    const command = interaction.client.commands.get(interaction.commandName);
+    const client = interaction.client as CustomClient;
+    const command = client.commands.get(interaction.commandName);
 
     if (!command) {
         console.error(
+            `No command matching ${interaction.commandName} was found.`,
+        );
+        throw new Error(
             `No command matching ${interaction.commandName} was found.`,
         );
     }

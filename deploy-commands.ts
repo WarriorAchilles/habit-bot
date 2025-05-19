@@ -1,13 +1,14 @@
 import { REST, Routes } from 'discord.js';
-import configs from './config.json' with { type: 'json' };
+import configs from './config.json';
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { createRequire } from 'node:module';
+import { RESTPutAPIApplicationGuildCommandsJSONBody } from 'discord-api-types/v10';
+// import { fileURLToPath } from 'node:url';
+// import { createRequire } from 'node:module';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const require = createRequire(import.meta.url);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// const require = createRequire(import.meta.url);
 
 const commands = [];
 // Grab all the command folders from the commands directory you created earlier
@@ -44,17 +45,25 @@ const rest = new REST().setToken(configs.token);
         );
 
         // The put method is used to fully refresh all commands in the guild with the current set
-        const data = await rest.put(
-            // use this for deployment to a specific server
-            Routes.applicationGuildCommands(configs.clientId, configs.guildId),
-            // use this instead for global deployment
-            // Routes.applicationCommands(configs.clientId),
-            { body: commands },
-        );
+        const data: RESTPutAPIApplicationGuildCommandsJSONBody[] | unknown =
+            await rest.put(
+                // use this for deployment to a specific server
+                Routes.applicationGuildCommands(
+                    configs.clientId,
+                    configs.guildId,
+                ),
+                // use this instead for global deployment
+                // Routes.applicationCommands(configs.clientId),
+                { body: commands },
+            );
 
-        console.log(
-            `Successfully reloaded ${data.length} application (/) commands`,
-        );
+        if (data instanceof Array) {
+            console.log(
+                `Successfully reloaded ${data.length} application (/) commands`,
+            );
+        } else {
+            console.log('Failed to reload application (/) commands');
+        }
     } catch (error) {
         console.error(error);
     }

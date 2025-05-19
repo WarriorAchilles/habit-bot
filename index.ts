@@ -1,19 +1,20 @@
 // Require all the necessary discord.js classes
-import { Client, Collection, GatewayIntentBits } from 'discord.js';
-import configs from './config.json' with { type: 'json' };
+import { Collection, GatewayIntentBits } from 'discord.js';
+import configs from './config.json';
 import fs from 'node:fs';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import { createRequire } from 'node:module';
+// import { fileURLToPath } from 'node:url';
+// import { createRequire } from 'node:module';
+import { CustomClient } from './types/CustomClient.ts';
 
 const token = configs.token;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const require = createRequire(import.meta.url);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
+// const require = createRequire(import.meta.url);
 
 // Create a new client instance
 // "Guild" refers to a Discord server
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new CustomClient({ intents: [GatewayIntentBits.Guilds] });
 
 client.commands = new Collection();
 
@@ -24,7 +25,7 @@ for (const folder of commandFolders) {
     const commandsPath = path.join(foldersPath, folder);
     const commandFiles = fs
         .readdirSync(commandsPath)
-        .filter((file) => file.endsWith('.js'));
+        .filter((file) => file.endsWith('.ts'));
     for (const file of commandFiles) {
         const filePath = path.join(commandsPath, file);
         const command = require(filePath);
@@ -42,7 +43,7 @@ for (const folder of commandFolders) {
 const eventsPath = path.join(__dirname, 'events');
 const eventFiles = fs
     .readdirSync(eventsPath)
-    .filter((file) => file.endsWith('.js'));
+    .filter((file) => file.endsWith('.ts'));
 
 for (const file of eventFiles) {
     const filePath = path.join(eventsPath, file);

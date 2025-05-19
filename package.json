@@ -2,27 +2,33 @@
     "name": "habit-bot",
     "version": "1.0.0",
     "description": "a discord bot to help you track your habits daily",
-    "main": "index.js",
+    "main": "index.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "node index.js",
-        "deployCommands": "node deploy-commands.js",
-        "syncDb": "node syncdb.js",
-        "createDb": "node syncdb.js --force"
+        "dev": "ts-node index.ts",
+        "deployCommands": "ts-node deploy-commands.ts",
+        "syncDb": "ts-node syncdb.ts",
+        "createDb": "ts-node syncdb.ts --force"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "discord-api-types": "^0.38.8",
         "discord.js": "^14.18.0",
         "sequelize": "^6.37.6",
         "sqlite3": "^5.1.7"
     },
     "devDependencies": {
-        "eslint": "^9.21.0",
+        "@types/node": "^22.15.18",
+        "@types/sequelize": "^4.28.20",
+        "@typescript-eslint/eslint-plugin": "^8.32.1",
+        "@typescript-eslint/parser": "^8.32.1",
+        "eslint": "^9.27.0",
         "eslint-config-prettier": "^10.0.2",
         "eslint-plugin-import": "^2.31.0",
         "globals": "^16.0.0",
-        "prettier": "^3.5.2"
-    },
-    "type": "module"
+        "prettier": "^3.5.2",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.8.3"
+    }
 }

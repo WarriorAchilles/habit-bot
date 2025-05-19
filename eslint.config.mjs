@@ -1,13 +1,19 @@
 import globals from 'globals';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
     js.configs.recommended,
+    tseslint.configs.recommended,
     eslintConfigPrettier,
     {
         languageOptions: {
+            parser: tseslint.parser,
+            parserOptions: {
+                project: './tsconfig.json',
+            },
             globals: globals.browser,
             ecmaVersion: 'latest',
         },
