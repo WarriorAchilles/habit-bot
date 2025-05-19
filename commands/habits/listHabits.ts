@@ -33,18 +33,16 @@ export async function execute(interaction: ChatInputCommandInteraction) {
     const habitString = habits
         .map((habit) => {
             return (
-                '# ' +
-                habit.habit_name +
-                '\n' +
-                '### Description: \n' +
+                `## ${habit.habit_name}\n` +
+                '**Description:**\n' +
                 habit.habit_description +
                 '\n' +
-                '### Frequency: \n' +
+                '**Frequency:**\n' +
                 habit.frequency +
                 '\n' +
-                '### Reminder Time: \n' +
+                '**Reminder Time:**\n' +
                 habit.reminder_time +
-                '\n'
+                '\n\n'
             );
         })
         .join('');
