@@ -3,12 +3,6 @@ import configs from './config.json';
 import fs from 'node:fs';
 import path from 'node:path';
 import { RESTPutAPIApplicationGuildCommandsJSONBody } from 'discord-api-types/v10';
-// import { fileURLToPath } from 'node:url';
-// import { createRequire } from 'node:module';
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// const require = createRequire(import.meta.url);
 
 const commands = [];
 // Grab all the command folders from the commands directory you created earlier

@@ -15,10 +15,13 @@
     "dependencies": {
         "discord-api-types": "^0.38.8",
         "discord.js": "^14.18.0",
+        "luxon": "^3.6.1",
+        "node-cron": "^4.0.5",
         "sequelize": "^6.37.6",
         "sqlite3": "^5.1.7"
     },
     "devDependencies": {
+        "@types/luxon": "^3.6.2",
         "@types/node": "^22.15.18",
         "@types/sequelize": "^4.28.20",
         "@typescript-eslint/eslint-plugin": "^8.32.1",

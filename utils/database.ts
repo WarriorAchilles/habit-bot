@@ -6,6 +6,8 @@ import { Sequelize, DataTypes, Model, Optional } from 'sequelize';
 export interface UserAttributes {
     id: number;
     discord_tag: string;
+    discord_snowflake_id: string;
+    timezone: string;
 }
 export interface UserCreationAttributes
     extends Optional<UserAttributes, 'id'> {}
@@ -44,6 +46,8 @@ export class User
 {
     public id!: number;
     public discord_tag!: string;
+    discord_snowflake_id!: string;
+    public timezone!: string;
 }
 
 export class Habit
@@ -92,6 +96,16 @@ export const Users = db.define<User, UserCreationAttributes>('users', {
         type: DataTypes.TEXT,
         unique: true,
         allowNull: false,
+    },
+    discord_snowflake_id: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+    },
+    timezone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'America/New_York',
     },
 });
 
